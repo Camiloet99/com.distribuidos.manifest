@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users
+  namespace: archivofiel
+  labels:
+    app: users
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+      - name: users
+        image: myrepo/users:latest  # Reemplaza con la imagen adecuada
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_R2DBC_URL
+          value: "r2dbc:pool:mysql://localhost:3306/maindatabase" # Reemplazar por la base de datos de usuarios
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASSWORD
+          value: "123456"
+        - name: JWT_SECRET
+          value: "EPzuE1fY/zKURZ0eklR27ULNZTpAO51+dfDWt3iJRI7zyv+UdDjXaDlkV7X1I04r89mvdet5CAWSFkfrKv+fmg=="
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "100m"
+          requests:
+            memory: "128Mi"
+            cpu: "50m"

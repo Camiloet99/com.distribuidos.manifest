@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: documents
+  namespace: archivofiel
+  labels:
+    app: documents
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: documents
+  template:
+    metadata:
+      labels:
+        app: documents
+    spec:
+      containers:
+      - name: documents
+        image: myrepo/documents:latest  # Reemplaza con la imagen adecuada
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: "jdbc:mysql://mydb/documents"
+

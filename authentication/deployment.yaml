@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication
+  namespace: archivofiel
+  labels:
+    app: authentication
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: authentication
+  template:
+    metadata:
+      labels:
+        app: authentication
+    spec:
+      containers:
+      - name: authentication
+        image: myrepo/authentication:latest  # Reemplaza con la imagen adecuada
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DISABLE_SSL_CERT_VALIDATION
+          value: "true" 
+        - name: OPERATOR_ID
+          value: "66dfa51b4d8f56001517a04c"
+        - name: OPERATOR_NAME
+          value: "ArchivoFiel"
+        - name: USERS_DOMAIN
+          value: "http://users.archivofiel.svc.cluster.local/ssh-guest-search/v1"
+        - name: CENTRALIZER_DOMAIN
+          value: "https://govcarpeta-apis-83e1c996379d.herokuapp.com/apis"
+        - name: SERVICE_RETRY_MAX_ATTEMPTS
+          value: "2"
+        - name: MAX_PAYLOAD_SIZE_IN_MB
+          value: "10"
+        - name: JWT_SECRET
+          value: "EPzuE1fY/zKURZ0eklR27ULNZTpAO51+dfDWt3iJRI7zyv+UdDjXaDlkV7X1I04r89mvdet5CAWSFkfrKv+fmg=="
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "50m"
+          requests:
+            memory: "128Mi"
+            cpu: "50m"
+

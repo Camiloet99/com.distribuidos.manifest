@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transfers
+  namespace: archivofiel
+  labels:
+    app: transfers
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: transfers
+  template:
+    metadata:
+      labels:
+        app: transfers
+    spec:
+      containers:
+      - name: transfers
+        image: myrepo/transfers:latest  # Reemplaza con la imagen adecuada
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: "jdbc:mysql://mydb/transfers"
