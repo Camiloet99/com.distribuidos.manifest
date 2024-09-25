@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: authentication
-        image: myrepo/authentication:latest  # Reemplaza con la imagen adecuada
+        image: camiloet99/authentication:latest
         ports:
         - containerPort: 8080
         env:
