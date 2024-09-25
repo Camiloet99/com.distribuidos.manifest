@@ -31,8 +31,8 @@ spec:
           value: "EPzuE1fY/zKURZ0eklR27ULNZTpAO51+dfDWt3iJRI7zyv+UdDjXaDlkV7X1I04r89mvdet5CAWSFkfrKv+fmg=="
         resources:
           limits:
-            memory: "256Mi"
-            cpu: "100m"
+            memory: "128Mi"
+            cpu: "20m"
           requests:
             memory: "128Mi"
-            cpu: "50m"
+            cpu: "20m"
