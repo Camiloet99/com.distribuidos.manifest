@@ -28,7 +28,7 @@ spec:
         - name: OPERATOR_NAME
           value: "ArchivoFiel"
         - name: USERS_DOMAIN
-          value: "http://users.archivofiel.svc.cluster.local/ssh-guest-search/v1"
+          value: "http://users.archivofiel.svc.cluster.local"
         - name: CENTRALIZER_DOMAIN
           value: "https://govcarpeta-apis-83e1c996379d.herokuapp.com/apis"
         - name: SERVICE_RETRY_MAX_ATTEMPTS

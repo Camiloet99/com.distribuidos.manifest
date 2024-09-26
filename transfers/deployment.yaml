@@ -1,12 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: transfers
-  namespace: archivofiel
+  name: transfers-deployment
   labels:
     app: transfers
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: transfers
@@ -17,9 +16,30 @@ spec:
     spec:
       containers:
       - name: transfers
-        image: myrepo/transfers:latest  # Reemplaza con la imagen adecuada
+        image: camiloet99/transfers:latest
         ports:
         - containerPort: 8080
         env:
-        - name: DATABASE_URL
-          value: "jdbc:mysql://mydb/transfers"
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: "localhost:9092" # Actualiza si tu Kafka está en otro host
+        - name: KAFKA_GROUP_ID
+          value: "distribuidos-group"
+        - name: KAFKA_TOPIC_NAME
+          value: "transfers-topic"
+        - name: DISABLE_SSL_CERT_VALIDATION
+          value: "true"
+        - name: DOCUMENTS_DOMAIN
+          value: "http://documents.archivofiel.svc.cluster.local"
+        - name: AUTHENTICATION_DOMAIN
+          value: "http://authentication.archivofiel.svc.cluster.local"
+        - name: SERVICE_RETRY_MAX_ATTEMPTS
+          value: "2"
+        - name: MAX_PAYLOAD_SIZE_IN_MB
+          value: "10"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "20m"
+          requests:
+            memory: "128Mi"
+            cpu: "20m"
